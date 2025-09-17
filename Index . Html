@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Interaktif</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      border-bottom: 1px solid #eee;
+    }
+    .message {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+      max-width: 80%;
+    }
+    .bot {
+      background: #e0f7fa;
+      align-self: flex-start;
+    }
+    .user {
+      background: #d1c4e9;
+      align-self: flex-end;
+    }
+    .input-box {
+      display: flex;
+      border-top: 1px solid #eee;
+    }
+    .input-box input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+    .input-box button {
+      padding: 10px 15px;
+      border: none;
+      background: #6200ea;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-box" id="chatBox">
+      <div class="message bot">Halo! Aku bot interaktif. Apa kabar?</div>
+    </div>
+    <div class="input-box">
+      <input type="text" id="userInput" placeholder="Tulis pesan...">
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const chatBox = document.getElementById('chatBox');
+      const userMsg = input.value.trim();
+      if (userMsg === "") return;
+
+      // Tambahkan pesan user
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user';
+      userDiv.innerText = userMsg;
+      chatBox.appendChild(userDiv);
+
+      // Respon bot sederhana
+      const botDiv = document.createElement('div');
+      botDiv.className = 'message bot';
+      if (userMsg.toLowerCase().includes("halo")) {
+        botDiv.innerText = "Halo juga! Senang bertemu denganmu 😃";
+      } else if (userMsg.toLowerCase().includes("siapa kamu")) {
+        botDiv.innerText = "Aku adalah bot sederhana yang dibuat untuk mengobrol denganmu!";
+      } else {
+        botDiv.innerText = "Menarik! Ceritakan lebih banyak...";
+      }
+      chatBox.appendChild(botDiv);
+
+      // Scroll otomatis ke bawah
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Kosongkan input
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
